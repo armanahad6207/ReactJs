@@ -1,13 +1,14 @@
-import './App.css';
+import './style.scss';
+import Board from './components/Board';
+import Square from './components/Square';
+import Heloo from './components/Heloo';
 
-function App() {
+const App = () => {
   return (
-    <>
-      <div className="card">
-        <h1>helloo world</h1>
-      </div>
-    </>
+    <div className="app">
+      <Board />
+    </div>
   );
-}
+};
 
 export default App;

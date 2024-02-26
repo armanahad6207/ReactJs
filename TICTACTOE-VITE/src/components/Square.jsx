@@ -1,9 +1,9 @@
-const Square = ({ value, children }) => {
-  console.log(children);
+const Square = ({ value }) => {
   return (
     <>
-      <div>hi this is another component {value}</div>
-      <br />
+      <button type="button" className="square">
+        {value}
+      </button>
     </>
   );
 };
