@@ -1,24 +1,7 @@
 import { useState } from 'react';
 import Square from './Square';
 
-function App() {
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [isXNext, setIsXNext] = useState(false);
-  const handleSquareClick = clickedPosition => {
-    if (squares[clickedPosition]) {
-      return;
-    }
-    setSquares(curentSquares => {
-      return curentSquares.map((squaresValue, position) => {
-        console.log(clickedPosition, position);
-        if (clickedPosition === position) {
-          return isXNext ? 'X' : 'O';
-        }
-        return squaresValue;
-      });
-    });
-    setIsXNext(currentXNext => !currentXNext);
-  };
+const Board = ({ squares, handleSquareClick }) => {
   const renderSquare = position => {
     return (
       <Square
@@ -49,6 +32,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
-export default App;
+export default Board;
