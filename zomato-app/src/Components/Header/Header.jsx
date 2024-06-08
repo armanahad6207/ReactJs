@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div>
-      <header className=" fixed w-full flex justify-between items-center bg-fuchsia-400 px-3 py-4 bg-transparent">
+      <header className=" fixed z-50 w-full flex justify-between items-center bg-fuchsia-400 px-3 py-4 bg-transparent">
         <nav className="flex justify-between w-full">
           <div className="w-1/5 flex justify-between items-center">
             <h2 className="text-2xl font-bold text-[#C84444]">Zomato-app</h2>
