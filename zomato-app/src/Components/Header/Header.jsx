@@ -1,19 +1,34 @@
 import { Link } from "react-router-dom";
 function Header() {
   return (
-    <div>
-      <header className=" fixed z-50 w-full flex justify-between items-center bg-fuchsia-400 px-3 py-4 bg-transparent">
-        <nav className="flex justify-between w-full">
-          <div className="w-1/5 flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-[#C84444]">Zomato-app</h2>
-            <Link className="text-sm border border-black px-2 py-1" to="/">
+    <div className="w-full">
+      <header className=" w-full bg-transparent fixed hidden sm:block  ">
+        <nav className=" container mx-auto flex justify-between items-center w-full">
+          <div className="flex justify-center items-center  gap-3 ">
+            <h2 className="text-[40px] font-extrabold text-[#2f1212] whitespace-nowrap ">
+              Zomato-app
+            </h2>
+            <Link
+              className="text-sm mt-[15px]  px-[20px] py-[2px] bg-red-600 hover:bg-red-700 text-white rounded-sm  "
+              to="/"
+            >
               Home
             </Link>
           </div>
 
-          <div className="space-x-5">
-            <Link to="#">Login</Link>
-            <Link to="#">SignUP</Link>
+          <div className="mr-[20px] sm:mr-[40px] space-x-3 sm:space-x-6 text-white">
+            <Link
+              to="#"
+              className=" border border-white px-[12px] py-[4px] text-center rounded-sm hover:text-slate-200  "
+            >
+              Login
+            </Link>
+            <Link
+              to="#"
+              className="border border-white px-[12px] py-[4px] text-center rounded-sm hover:text-slate-200   "
+            >
+              SignUP
+            </Link>
           </div>
         </nav>
       </header>
