@@ -1,11 +1,10 @@
 import Homepage from "./Pages/Homepage";
-import Quicksearch from "./Pages/Quicksearch";
 
 function Layout() {
+  console.log("heloo worls");
   return (
     <>
       <Homepage />
-      <Quicksearch />
     </>
   );
 }

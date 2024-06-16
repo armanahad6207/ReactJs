@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 function Header() {
+  console.log("header");
   return (
     <div className="w-full">
       <header className=" w-full bg-transparent fixed hidden sm:block  ">

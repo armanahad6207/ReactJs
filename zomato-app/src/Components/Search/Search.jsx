@@ -26,21 +26,23 @@ function Search() {
               <select
                 className="text-[#636F88] outline-none px-[10px] py-[12px] text-[20px] mx-[40px] sm:mx-0  hover:bg-slate-100 bg-white "
                 style={{ appearance: "none" }}
+                defaultValue={0}
               >
-                <option disabled selected hidden>
+                <option value={0} disabled defaultValue hidden>
                   Please Type a Location
                 </option>
-                <option>Sarjapur Road</option>
-                <option>Bengaluru HSR Layout</option>
-                <option>Bengaluru Kormangala</option>
-                <option>Bengaluru Jay Nagar</option>
+                <option value={1}>Sarjapur Road</option>
+                <option value={2}>Bengaluru HSR Layout</option>
+                <option value={3}>Bengaluru Kormangala</option>
+                <option value={4}>Bengaluru Jay Nagar</option>
               </select>
 
               <select
                 className="text-[#636F88] outline-none px-[10px] py-[12px] text-[20px] mx-[40px] sm:mx-0 hover:bg-slate-100 bg-white  "
                 style={{ appearance: "none" }}
+                defaultValue={0}
               >
-                <option disabled selected hidden>
+                <option value={0} disabled hidden>
                   Search for restaurants
                 </option>
               </select>

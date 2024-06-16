@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
 import Homepage from "./Pages/Homepage";
-import Quicksearch from "./Pages/Quicksearch";
+
 const router = createBrowserRouter([
   {
     path: "/",
