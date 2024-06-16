@@ -1,11 +1,10 @@
 import bgImage from "../../assets/shutterstock_348320018@2x.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 function Search() {
   return (
     <>
       <div
-        className="w-full h-[80vh] bg-slate-600   "
+        className="w-full h-[80vh] bg-slate-600 box-border   "
         style={{
           background: `url(${bgImage})`,
           backgroundSize: "cover",
@@ -22,13 +21,13 @@ function Search() {
           <div className="mt-[40px]">
             <form
               action=""
-              className="grid grid-cols-1 gap-[20px] min-w-[200px]"
+              className="grid grid-cols-1 sm:grid-cols-[40%_auto] sm:gap-[11px] gap-4   mx-auto sm:px-[50px] lg:px-[150px] "
             >
               <select
-                className="text-[#636F88] outline-none px-[10px] py-[15px] text-[20px] "
+                className="text-[#636F88] outline-none px-[10px] py-[12px] text-[20px] mx-[40px] sm:mx-0  hover:bg-slate-100 bg-white "
                 style={{ appearance: "none" }}
               >
-                <option disabled hidden>
+                <option disabled selected hidden>
                   Please Type a Location
                 </option>
                 <option>Sarjapur Road</option>
@@ -38,10 +37,10 @@ function Search() {
               </select>
 
               <select
-                className="text-[#636F88] outline-none px-[10px] py-[15px] text-[20px] "
+                className="text-[#636F88] outline-none px-[10px] py-[12px] text-[20px] mx-[40px] sm:mx-0 hover:bg-slate-100 bg-white  "
                 style={{ appearance: "none" }}
               >
-                <option disabled hidden>
+                <option disabled selected hidden>
                   Search for restaurants
                 </option>
               </select>
