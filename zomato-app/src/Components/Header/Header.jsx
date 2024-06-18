@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-function Header() {
+function Header({ bgColor }) {
   console.log("header");
   return (
     <div className="w-full">
-      <header className=" w-full bg-transparent fixed hidden sm:block  ">
+      <header
+        className={` w-full bg-transparent fixed hidden sm:block ${bgColor} p-1 `}
+      >
         <nav className=" container mx-auto flex justify-between items-center w-full">
           <div className="flex justify-center items-center  gap-3 ">
             <h2 className="text-[40px] font-extrabold text-[#2f1212] whitespace-nowrap ">

@@ -1,10 +1,11 @@
 import Homepage from "./Pages/Homepage";
+import Listingpage from "./Pages/Listingpage";
 
 function Layout() {
-  console.log("heloo worls");
   return (
     <>
       <Homepage />
+      <Listingpage />
     </>
   );
 }
