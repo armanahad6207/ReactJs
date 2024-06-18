@@ -1,6 +1,56 @@
+import { useEffect, useState } from "react";
 import bgImage from "../../assets/shutterstock_348320018@2x.png";
-
+const rurl = "http://localhost:3000/restaurant?state_id=";
+const lurl = "http://localhost:3000/location";
 function Search() {
+  const [resturant, setResturant] = useState([]);
+  const [city, setCity] = useState([]);
+
+  // Rest Api for city
+  useEffect(() => {
+    fetch(lurl).then((res) =>
+      res.json().then((data) => {
+        setCity(data);
+      })
+    );
+  }, []);
+
+  // call REST api for resturant
+
+  let handleResturant = (event) => {
+    const stateId = event.target.value;
+    console.log(stateId);
+    fetch(`${rurl}${stateId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setResturant(data);
+      });
+  };
+
+  // return city Name
+  function renderCity(data) {
+    return data.map((val) => {
+      return (
+        <option key={val._id} value={val.state_id}>
+          {val.state}
+        </option>
+      );
+    });
+  }
+
+  // return resturant wrt city name
+
+  function renderRestaurant(data) {
+    return data.map((val) => {
+      return (
+        <option key={val._id} value={val.state_id}>
+          {val.restaurant_name}
+        </option>
+      );
+    });
+  }
+  console.log(resturant);
+
   return (
     <>
       <div
@@ -24,6 +74,7 @@ function Search() {
               className="grid grid-cols-1 sm:grid-cols-[40%_auto] sm:gap-[11px] gap-4   mx-auto sm:px-[50px] lg:px-[150px] "
             >
               <select
+                onChange={handleResturant}
                 className="text-[#636F88] outline-none px-[10px] py-[12px] text-[20px] mx-[40px] sm:mx-0  hover:bg-slate-100 bg-white "
                 style={{ appearance: "none" }}
                 defaultValue={0}
@@ -31,10 +82,7 @@ function Search() {
                 <option value={0} disabled defaultValue hidden>
                   Please Type a Location
                 </option>
-                <option value={1}>Sarjapur Road</option>
-                <option value={2}>Bengaluru HSR Layout</option>
-                <option value={3}>Bengaluru Kormangala</option>
-                <option value={4}>Bengaluru Jay Nagar</option>
+                {renderCity(city)}
               </select>
 
               <select
@@ -45,6 +93,7 @@ function Search() {
                 <option value={0} disabled hidden>
                   Search for restaurants
                 </option>
+                {renderRestaurant(resturant)}
               </select>
             </form>
           </div>

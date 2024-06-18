@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const murl = "http://localhost:3000/mealtype";
 export default function Quicksearch() {
-  const [mealType, setMealType] = useState("");
+  const [mealType, setMealType] = useState([]);
 
   useEffect(() => {
     const fetchMealData = async () => {
@@ -27,18 +27,17 @@ export default function Quicksearch() {
           {mealType.map((item) => (
             <div
               key={item.mealtype_id}
-              className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl"
+              className="max-w-md mx-auto  shadow-md rounded-lg overflow-hidden md:max-w-2xl hover:scale-110 bg-white "
             >
               <div className="sm:flex">
                 <div className="md:flex-shrink-0">
                   <img
-                    className="w-full object-cover h-full md:w-48"
+                    className="w-full object-cover h-[100%] rounded-sm  md:w-48"
                     src={item.meal_image}
-                    alt="breakfast"
                   />
                 </div>
                 <div className="px-5 py-6">
-                  <h2 className="text-2xl font-bold text-[#192F60]">
+                  <h2 className="text-2xl  font-bold text-[#192F60]">
                     {item.mealtype}
                   </h2>
                   <p className="mt-2 text-gray-600 leading-[18px]">
