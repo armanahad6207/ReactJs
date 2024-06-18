@@ -54,24 +54,6 @@ function Listingpage() {
           </div>
 
           {/* Right side - Products */}
-          <div className="bg-red-500 h-full w-full">
-            <div className="col-span-3 bg-white p-4 rounded">
-              <h2 className="text-xl font-bold mb-4">Products</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* Add product cards here */}
-                <div className="border rounded p-4">
-                  <img
-                    src="https://via.placeholder.com/150"
-                    alt="Product"
-                    className="w-full mb-4"
-                  />
-                  <h3 className="font-bold">Product Name</h3>
-                  <p className="text-gray-600">$100</p>
-                </div>
-                {/* Add more product cards as needed */}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
