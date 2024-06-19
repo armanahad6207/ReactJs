@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 function Header({ bgColor }) {
-  console.log("header");
   return (
     <div className="w-full">
       <header
-        className={` w-full bg-transparent fixed hidden sm:block ${bgColor} p-1 `}
+        className={` w-full bg-transparent fixed hidden sm:block ${bgColor} p-1 bg-red-700 `}
       >
         <nav className=" container mx-auto flex justify-between items-center w-full">
           <div className="flex justify-center items-center  gap-3 ">
@@ -38,5 +38,8 @@ function Header({ bgColor }) {
     </div>
   );
 }
+Header.propTypes = {
+  bgColor: PropTypes.string.isRequired,
+};
 
 export default Header;

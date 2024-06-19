@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import Header from "../Components/Header/Header";
 import Filterbycuisine from "../Components/Filter/Filterbycuisine";
 import Filterbycost from "../Components/Filter/Filterbycost";
+import Filterrestaurant from "../Components/Filter/Filterrestaurant";
 
 function Listingpage() {
   const murl = "http://localhost:3000/restaurant?mealId=";
   const [restaurant, setRestaurant] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("");
 
   const { mealId } = useParams();
 
@@ -23,37 +25,48 @@ function Listingpage() {
       });
   }, []);
 
+  const setDataFilter = (data) => {
+    setRestaurant(data);
+  };
+
   return (
-    <div className="">
+    <div>
       <Header bgColor="bg-red-500" />
 
-      <div className="container mx-auto sm:py-[100px] py-0 ">
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div className=" h-full w-full">
+        <div className=" grid sm:grid-cols-[25%_auto] grid-cols-1 pt-3 ">
           {/* Left side - Filter */}
-          <div className="col-span-1 sm:h-full  bg-gray-100 px-6 py-3 rounded">
-            <h2 className="text-xl font-bold mb-4 text-[#192F60]">Filters</h2>
-            <div>
-              <h3 className="text-[14px] text-[#192F60] mb-[7px]">
-                Select Location
-              </h3>
-              <select
-                defaultValue={0}
-                className="w-[208px] h-[35px] text-[#8C96AB] outline-none shadow-sm"
-              >
-                <option value={0} disabled hidden>
-                  Select Location
-                </option>
-                <option>ranc</option>
-              </select>
+          <div className="bg-white   m-2  sm:h-[100%] h-[250px] sm:py-[20px]  px-[10px] sm:my-[80px] sm:mx-[10px] ">
+            <div className="flex flex-col  items-center sm:items-start">
+              <h2 className="text-xl font-bold mb-4 text-[#192F60]">Filters</h2>
             </div>
             {/* filter by cuisine */}
-            <Filterbycuisine />
+            <Filterbycuisine
+              mealId={mealId}
+              restaurantCuisine={(data) => {
+                setDataFilter(data);
+              }}
+              setActiveFilter={setActiveFilter}
+            />
 
             {/* filter by cost */}
-            <Filterbycost />
+            <Filterbycost
+              mealId={mealId}
+              restaurantCost={(data) => {
+                setDataFilter(data);
+              }}
+              setActiveFilter={setActiveFilter}
+            />
           </div>
+          {/* Left side - Filter-end */}
 
-          {/* Right side - Products */}
+          {/* product */}
+          <div className="bg-gray-100  sm:px-[50px] px-[10px]  flex flex-col gap-3 items-center justify-center min-h-screen w-full py-[70px] ">
+            {restaurant.map((item, index) => {
+              return <Filterrestaurant key={index} resData={item} />;
+            })}
+            {/* <Filterrestaurant />; */}
+          </div>
         </div>
       </div>
     </div>

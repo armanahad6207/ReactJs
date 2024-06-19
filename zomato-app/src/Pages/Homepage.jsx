@@ -5,7 +5,7 @@ import Quicksearch from "../Components/Quicksearch/Quicksearch.1";
 function Homepage() {
   return (
     <>
-      <Header />
+      <Header bgColor="bg-white" />
       <Search />
       <Quicksearch />
     </>
