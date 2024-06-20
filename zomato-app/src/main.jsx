@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Homepage from "./Pages/Homepage";
 import Listingpage from "./Pages/Listingpage";
+import Restdetails from "./Pages/Restdetail";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/listing/:mealId",
     element: <Listingpage />,
+  },
+  {
+    path: "/details/:id",
+    element: <Restdetails />,
   },
 ]);
 

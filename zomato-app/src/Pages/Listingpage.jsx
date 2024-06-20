@@ -8,6 +8,7 @@ import Filterrestaurant from "../Components/Filter/Filterrestaurant";
 function Listingpage() {
   const murl = "http://localhost:3000/restaurant?mealId=";
   const [restaurant, setRestaurant] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [activeFilter, setActiveFilter] = useState("");
 
   const { mealId } = useParams();

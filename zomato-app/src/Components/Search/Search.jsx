@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import bgImage from "../../assets/shutterstock_348320018@2x.png";
 const rurl = "http://localhost:3000/restaurant?state_id=";
 const lurl = "http://localhost:3000/location";
 function Search() {
   const [resturant, setResturant] = useState([]);
   const [city, setCity] = useState([]);
+  const navigate = useNavigate();
 
   // Rest Api for city
   useEffect(() => {
@@ -25,6 +27,17 @@ function Search() {
       .then((data) => {
         setResturant(data);
       });
+  };
+
+  // Navigate to restaurant details and pass the city state
+  const handleRestaurantDetail = (event) => {
+    const restaurantId = event.target.value;
+    if (restaurantId !== "0") {
+      const selectedCity = city.find(
+        (city) => city.state_id === event.target.value
+      );
+      navigate(`/details/${restaurantId}`, { state: { city: selectedCity } });
+    }
   };
 
   // return city Name
@@ -86,6 +99,7 @@ function Search() {
               </select>
 
               <select
+                onChange={handleRestaurantDetail}
                 className="text-[#636F88] outline-none px-[10px] py-[12px] text-[20px] mx-[40px] sm:mx-0 hover:bg-slate-100 bg-white  "
                 style={{ appearance: "none" }}
                 defaultValue={0}
