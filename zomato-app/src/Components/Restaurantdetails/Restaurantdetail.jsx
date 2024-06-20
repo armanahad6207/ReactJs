@@ -124,7 +124,7 @@ function Restaurantdetail() {
         </button>
       </div>
       <div className="bg-slate-200">
-        <Menulist menu={menuList} />
+        <Menulist menu={menuList} restaurant={details} />
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       </div>
     </div>

@@ -7,6 +7,7 @@ import "./index.css";
 import Homepage from "./Pages/Homepage";
 import Listingpage from "./Pages/Listingpage";
 import Restdetails from "./Pages/Restdetail";
+import Booking from "./Pages/Booking";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/details/:id",
     element: <Restdetails />,
+  },
+  {
+    path: "/placeorder/:restdetails",
+    element: <Booking />,
   },
 ]);
 

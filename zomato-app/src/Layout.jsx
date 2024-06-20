@@ -1,3 +1,4 @@
+import Booking from "./Pages/Booking";
 import Homepage from "./Pages/Homepage";
 import Listingpage from "./Pages/Listingpage";
 import Restdetail from "./Pages/Restdetail";
@@ -8,6 +9,7 @@ function Layout() {
       <Homepage />
       <Listingpage />
       <Restdetail />
+      <Booking />
     </>
   );
 }

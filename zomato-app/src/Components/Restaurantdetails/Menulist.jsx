@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Menulist({ menu }) {
+function Menulist({ menu, restaurant }) {
   const [order, setOrder] = useState([]);
+  const [finalOrder, setFinalOrder] = useState([]);
+  const history = useHistory();
 
   // Function to add item to order
   const addToOrder = (item) => {
@@ -19,8 +22,24 @@ function Menulist({ menu }) {
 
   // Calculate total number of items in order
   const totalItems = order.length;
-  console.log(order);
-
+  console.log(
+    order.map((val) => {
+      return val.menu_id;
+    })
+  );
+  // Function to finalize order and store in sessionStorage
+  const finalizeOrder = () => {
+    setFinalOrder(order);
+    sessionStorage.setItem(
+      "finalOrder",
+      JSON.stringify(
+        order.map((val) => {
+          return val.menu_id;
+        })
+      )
+    );
+    history.push(`/placeorder/${restaurant.restaurant_name}`);
+  };
   return (
     <div className="container mx-auto py-4">
       <div className="mt-4">
@@ -72,6 +91,14 @@ function Menulist({ menu }) {
           </div>
         ))}
       </div>
+      <div className="mt-4">
+        <button
+          onClick={finalizeOrder}
+          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4"
+        >
+          Proceed
+        </button>
+      </div>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </div>
   );
@@ -86,6 +113,11 @@ Menulist.propTypes = {
       menu_type: PropTypes.string.isRequired,
       menu_image: PropTypes.string.isRequired,
       menu_id: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  restaurant: PropTypes.arrayOf(
+    PropTypes.shape({
+      restaurant_name: PropTypes.string.isRequired,
     })
   ).isRequired,
 };
