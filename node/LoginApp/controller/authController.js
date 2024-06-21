@@ -89,6 +89,3 @@ router.get("/userInfo", (req, res) => {
 });
 
 module.exports = router;
-
-// password@123  + random String(salting) => 65836785
-// password@123 + random String(salting) => 5437657655

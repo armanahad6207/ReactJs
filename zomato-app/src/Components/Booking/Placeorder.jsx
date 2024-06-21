@@ -28,7 +28,7 @@ function Placeorder(props) {
   };
 
   return (
-    <div className="w-[1110px] container mx-auto py-4 px-4 md:px-8 lg:px-16 border border-blue-600 my-2">
+    <div className="  w-[1110px] container mx-auto py-4 px-4 md:px-8 lg:px-16 border border-blue-600 my-2">
       <h2 className="text-3xl text-white rounded-sm font-bold mb-4 bg-blue-600 px-2 py-4">
         Order for {restaurantName}
       </h2>

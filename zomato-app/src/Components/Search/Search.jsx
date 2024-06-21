@@ -67,7 +67,7 @@ function Search() {
   return (
     <>
       <div
-        className="w-full h-[80vh] bg-slate-600 box-border   "
+        className="w-full h-[85vh] bg-slate-600 box-border   "
         style={{
           background: `url(${bgImage})`,
           backgroundSize: "cover",

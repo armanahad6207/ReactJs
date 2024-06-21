@@ -8,6 +8,8 @@ import Homepage from "./Pages/Homepage";
 import Listingpage from "./Pages/Listingpage";
 import Restdetails from "./Pages/Restdetail";
 import Booking from "./Pages/Booking";
+// import Login from "./Components/Auth/Login";
+// import Register from "./Components/Auth/Register";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
     path: "/placeorder/:restaurantName",
     element: <Booking />,
   },
+  // {
+  //   path: "/login",
+  //   element: <Login />,
+  // },
+  // {
+  //   path: "/register",
+  //   element: <Registe />,
+  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
