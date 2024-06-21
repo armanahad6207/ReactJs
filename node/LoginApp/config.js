@@ -1,3 +1,3 @@
 module.exports = {
-  secert: "seceretkey",
+  secret: "your-secret-key",
 };

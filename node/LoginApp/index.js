@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
+const PORT = 4000;
 const db = require("./db");
+const cors = require("cors");
+app.use(cors());
+const AuthController = require("./controller/authController");
 
-const authController = require("./controller/authController");
+app.use("/api/auth", AuthController);
 
-app.use("/auth", authController);
-
-app.listen(4000, () => {
-  console.log("server started successfully");
-});
+app.listen(PORT, () => console.log("Server started on the port", PORT));

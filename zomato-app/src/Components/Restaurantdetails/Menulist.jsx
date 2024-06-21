@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Menulist({ menu, restaurant }) {
   const [order, setOrder] = useState([]);
   const [finalOrder, setFinalOrder] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // Function to add item to order
   const addToOrder = (item) => {
@@ -38,8 +38,9 @@ function Menulist({ menu, restaurant }) {
         })
       )
     );
-    history.push(`/placeorder/${restaurant.restaurant_name}`);
+    navigate(`/placeorder/${encodeURIComponent(restaurant.restaurant_name)}`);
   };
+  console.log(restaurant.restaurant_name);
   return (
     <div className="container mx-auto py-4">
       <div className="mt-4">

@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     element: <Restdetails />,
   },
   {
-    path: "/placeorder/:restdetails",
+    path: "/placeorder/:restaurantName",
     element: <Booking />,
   },
 ]);
