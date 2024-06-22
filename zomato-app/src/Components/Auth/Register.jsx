@@ -56,7 +56,7 @@ function RegistrationPopUp({ closePopUp }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
       <div className="bg-white p-6 rounded shadow-lg w-96">
-        <h2 className="text-2xl mb-4 text-black">Register</h2>
+        <h2 className="text-2xl mb-4 text-[#192F60] font-bold">Register</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
