@@ -1,154 +1,156 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function RegistrationPopUp({ closePopUp }) {
-  const url = "http://localhost:4000/api/auth/register";
+const url = "http://localhost:9000/api/auth/register";
+
+export default function Register() {
   const [state, setState] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
+    name: "arman",
+    email: "arman@gmail.com",
+    password: "2sjdf13123",
+    phone: "32980192",
+    role: "user", // Ensure role is included
   });
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(state),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent default form submission
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(state),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((error) => {
+            throw new Error(
+              `HTTP error! status: ${res.status}, message: ${error.message}`
+            );
+          });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data); // Log the response for debugging
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error("Error during registration:", error.message);
       });
-
-      const contentType = response.headers.get("content-type");
-
-      if (response.ok) {
-        const data =
-          contentType && contentType.includes("application/json")
-            ? await response.json()
-            : await response.text();
-
-        console.log("Registration successful", data);
-      } else {
-        const errorMessage =
-          contentType && contentType.includes("application/json")
-            ? await response.json()
-            : await response.text();
-
-        throw new Error(errorMessage);
-      }
-      closePopUp();
-    } catch (error) {
-      console.error("There was a problem with the registration:", error);
-    }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-lg w-96">
-        <h2 className="text-2xl mb-4 text-[#192F60] font-bold">Register</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-700"
-              htmlFor="name"
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={state.name}
-              onChange={handleChange}
-              className="text-black mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-              required
-            />
+    <>
+      <div className="w-[1110px] container mx-auto py-4 px-4 md:px-8 lg:px-16 border border-blue-600 my-2">
+        <h2 className="text-3xl text-white rounded-sm font-bold mb-4 bg-blue-600 px-2 py-4">
+          User Registration
+        </h2>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div className="grid md:grid-cols-2 gap-4 items-center">
+            <div>
+              <label
+                className="block text-lg font-semibold mb-2 md:mb-0"
+                htmlFor="name"
+              >
+                User Name:
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={state.name}
+                onChange={handleChange}
+                required
+                className="w-full p-2 border border-blue-400 rounded"
+              />
+            </div>
+            <div>
+              <label
+                className="block text-lg font-semibold mb-2 md:mb-0"
+                htmlFor="email"
+              >
+                Email:
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={state.email}
+                onChange={handleChange}
+                required
+                className="w-full p-2 border border-blue-400 rounded"
+              />
+            </div>
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-700"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={state.email}
-              onChange={handleChange}
-              className="text-black mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-              required
-            />
+          <div className="grid md:grid-cols-2 gap-4 items-center">
+            <div>
+              <label
+                className="block text-lg font-semibold mb-2 md:mb-0"
+                htmlFor="password"
+              >
+                Password:
+              </label>
+              <input
+                type="password"
+                name="password"
+                value={state.password}
+                onChange={handleChange}
+                required
+                className="w-full p-2 border border-blue-400 rounded"
+              />
+            </div>
+            <div className="gap-3">
+              <label
+                className="block text-lg font-semibold mb-2 md:mb-0"
+                htmlFor="phone"
+              >
+                Phone:
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                value={state.phone}
+                onChange={handleChange}
+                required
+                className="w-full p-2 border border-blue-400 rounded"
+              />
+            </div>
+            <div className="gap-3">
+              <label
+                className="block text-lg font-semibold mb-2 md:mb-0"
+                htmlFor="role"
+              >
+                Role:
+              </label>
+              <input
+                type="text"
+                name="role"
+                value={state.role}
+                onChange={handleChange}
+                required
+                className="w-full p-2 border border-blue-400 rounded"
+              />
+            </div>
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-700"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={state.password}
-              onChange={handleChange}
-              className="text-black mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium text-gray-700"
-              htmlFor="phone"
-            >
-              Phone
-            </label>
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              value={state.phone}
-              onChange={handleChange}
-              className="text-black mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-              required
-            />
-          </div>
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={closePopUp}
-              className="mr-4 text-black"
-            >
-              Cancel
-            </button>
+          <div className="md:flex md:px-4 gap-2 items-center"></div>
+          <div className="md:px-4">
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
             >
               Register
             </button>
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 }
-
-RegistrationPopUp.propTypes = {
-  closePopUp: PropTypes.func.isRequired,
-};
-
-export default RegistrationPopUp;
