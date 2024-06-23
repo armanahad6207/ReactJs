@@ -1,94 +1,3 @@
-// import { Link } from "react-router-dom";
-// import PropTypes from "prop-types";
-// import { useEffect, useState } from "react";
-
-// let url = "http://localhost:9000/api/auth/userInfo";
-// function Header() {
-//   const [userData, setUserData] = useState("");
-
-//   useEffect(() => {
-//     fetch(url, {
-//       method: "GET",
-//       headers: {
-//         "x-access-token": sessionStorage.getItem("itk"),
-//       },
-//     })
-//       .then((res) => res.json())
-//       .then((data) => {
-//         console.log(data);
-//         setUserData(data);
-//       });
-//   }, []);
-
-//   const conditionalHandler = () => {
-//     if (userData.name) {
-//       sessionStorage.setItem("loginstatus", "logedIn");
-//       sessionStorage.setItem("userInfo", JSON.stringify(userData));
-//       return (
-//         <>
-//           <div className="mr-[20px] sm:mr-[40px] space-x-3 sm:space-x-6 text-white">
-//             <Link
-//               to="/login"
-//               className=" border border-white px-[12px] py-[4px] text-center rounded-sm hover:text-slate-200  "
-//             >
-//               Hi,{userData.name}
-//             </Link>
-
-//             <button className="text-xl bg-red-400 px-2 py-1 rounded-sm">
-//               logOut
-//             </button>
-//           </div>
-//         </>
-//       );
-//     } else {
-//       return (
-//         <>
-//           <div className="mr-[20px] sm:mr-[40px] space-x-3 sm:space-x-6 text-white">
-//             <Link
-//               to="/login"
-//               className=" border border-white px-[12px] py-[4px] text-center rounded-sm hover:text-slate-200  "
-//             >
-//               Login
-//             </Link>
-
-//             <Link
-//               to="/register"
-//               className="border border-white px-[12px] py-[4px] text-center rounded-sm hover:text-slate-200   "
-//             >
-//               SignUP
-//             </Link>
-//           </div>
-//         </>
-//       );
-//     }
-//   };
-//   return (
-//     <div className="w-full">
-//       <header className={` w-full bg-transparent fixed hidden sm:block  p-1  `}>
-//         <nav className=" container mx-auto flex justify-between items-center w-full">
-//           <div className="flex justify-center items-center  gap-3 ">
-//             <h2 className="text-[40px] font-extrabold text-[#2f1212] whitespace-nowrap ">
-//               Zomato-app
-//             </h2>
-//             <Link
-//               className="text-sm mt-[15px]  px-[20px] py-[2px] bg-red-600 hover:bg-red-700 text-white rounded-sm  "
-//               to="/"
-//             >
-//               Home
-//             </Link>
-//           </div>
-
-//           {conditionalHandler()}
-//         </nav>
-//       </header>
-//     </div>
-//   );
-// }
-// Header.propTypes = {
-//   bgColor: PropTypes.string.isRequired,
-// };
-
-// export default Header;
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
@@ -133,20 +42,31 @@ function Header() {
       });
   }, [navigate]);
 
+  const handleLogout = () => {
+    sessionStorage.setItem("loginstatus", "loggedOut");
+    sessionStorage.setItem("userInfo", "");
+    setUserData("");
+    sessionStorage.removeItem("ltk");
+    navigate("/login");
+  };
+
   const conditionalHandler = () => {
     if (userData.name) {
       sessionStorage.setItem("loginstatus", "loggedIn");
       sessionStorage.setItem("userInfo", JSON.stringify(userData));
       return (
-        <div className="mr-[20px] sm:mr-[40px] space-x-3 sm:space-x-6 text-white">
+        <div className="mr-[20px] sm:mr-[40px] space-x-3 sm:space-x-6 text-white mt-[25px] sm:mt-[10px] ">
           <Link
-            to="/login"
-            className="border border-white px-[12px] py-[4px] text-center rounded-sm hover:text-slate-200"
+            to="#"
+            className=" bg-slate-600 text-white border  border-white px-[14px] py-[8px] text-center rounded-sm hover:text-slate-200"
           >
             Hi, {userData.name}
           </Link>
-          <button className="text-xl bg-red-400 px-2 py-1 rounded-sm">
-            logOut
+          <button
+            className=" bg-red-400  px-[13px] py-[7px]  rounded-sm"
+            onClick={handleLogout}
+          >
+            Logout
           </button>
         </div>
       );
@@ -172,18 +92,12 @@ function Header() {
 
   return (
     <div className="w-full">
-      <header className="w-full bg-transparent fixed hidden sm:block p-1">
+      <header className="w-full bg-transparent fixed  p-1">
         <nav className="container mx-auto flex justify-between items-center w-full">
-          <div className="flex justify-center items-center gap-3">
-            <h2 className="text-[40px] font-extrabold text-[#2f1212] whitespace-nowrap">
-              Zomato-app
+          <div className="mx-[20px] hidden sm:block ">
+            <h2 className="text-[40px] font-extrabold hover:text-[#4f1c1c] text-red-600  whitespace-nowrap">
+              <Link to="/"> Zomato-app</Link>
             </h2>
-            <Link
-              className="text-sm mt-[15px] px-[20px] py-[2px] bg-red-600 hover:bg-red-700 text-white rounded-sm"
-              to="/"
-            >
-              Home
-            </Link>
           </div>
           {conditionalHandler()}
         </nav>

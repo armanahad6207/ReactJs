@@ -11,6 +11,7 @@ import Restdetails from "./Pages/Restdetail";
 import Booking from "./Pages/Booking";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
+import Orderdmenu from "./Components/Booking/Orderdmenu";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/orderBooking",
+    element: <Orderdmenu />,
   },
 ]);
 

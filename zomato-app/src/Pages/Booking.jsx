@@ -3,10 +3,10 @@ import Header from "../Components/Header/Header";
 
 function Booking() {
   return (
-    <>
+    <div className="flex flex-col gap-[100px]">
       <Header />
       <Placeorder />
-    </>
+    </div>
   );
 }
 

@@ -1,5 +1,8 @@
 const express = require("express"); //third party package
 let app = express();
+const stripe = require("stripe")(
+  "sk_test_51PUpG402Ca2xbOBV3OFc57cuBSUbNBrrkauqcpx1YPz2cgVxRWdMiS1dr3oxPXua0bvLhgeN6PO65SoHEq1BiMsD00J4MK6psW"
+);
 var cors = require("cors");
 const mongo = require("mongodb");
 const MongoClient = mongo.MongoClient;
@@ -113,22 +116,45 @@ app.get("/menu/:id", (req, res) => {
 
 // menu item
 
+// app.post("/menuItem", (req, res) => {
+//   if (Array.isArray(req.body)) {
+//     db.collection("RestaurantMenu").find({ menu_id: { $in: req.body } })(
+//       (err, result) => {
+//         if (err) throw err;
+//         res.send(result);
+//       }
+//     );
+//   } else {
+//     res.send("invalid input");
+//   }
+// });
+
 app.post("/menuItem", (req, res) => {
-  if (Array.isArray(req.body)) {
-    db.collection("RestaurantMenu").find({ menu_id: { $in: req.body } })(
-      (err, result) => {
-        if (err) throw err;
-        res.send(result);
-      }
-    );
+  console.log("Received request body:", req.body);
+
+  if (req.body && req.body.menu_id && Array.isArray(req.body.menu_id)) {
+    const query = { menu_id: { $in: req.body.menu_id } };
+    console.log("Executing query:", JSON.stringify(query));
+
+    db.collection("RestaurantMenu")
+      .find(query)
+      .toArray((err, result) => {
+        if (err) {
+          console.error("Error executing query:", err);
+          res.status(500).json({ error: "Internal Server Error" });
+          return;
+        }
+        console.log("Query result:", result);
+        res.json(result);
+      });
   } else {
-    res.send("invalid input");
+    console.log("Invalid input received");
+    res.status(400).json({ error: "Invalid Input" });
   }
 });
 
 //placeorder
-
-app.get("/placeorder", (req, res) => {
+app.post("/placeorder", (req, res) => {
   console.log(req.body);
   db.collection("OrderList").insertOne(req.body, (err) => {
     if (err) throw err;
@@ -183,6 +209,32 @@ app.delete("/deleteOrder/:id", (req, res) => {
     if (err) throw err;
     res.send(` this order id is (${oid}) deleted Successfully`);
   });
+});
+
+// payment
+app.post("/api/payment", async (req, res) => {
+  const { id, amount } = req.body;
+
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: "usd",
+      payment_method: id,
+      confirm: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Payment successful",
+      payment,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Payment failed",
+      error: error.message,
+    });
+  }
 });
 //mongodb connection
 MongoClient.connect(MONGO_URL, (err, client) => {

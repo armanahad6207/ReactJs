@@ -112,20 +112,18 @@ function Restaurantdetail() {
           </div>
         </div>
       )}
-      <div className=" md:flex flex-col md:flex-row gap-3 justify-center my-2 ">
+
+      <div className="bg-slate-200">
+        <Menulist menu={menuList} restaurant={details} />
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+      </div>
+      <div className="  my-2 flex flex-row-reverse m-0">
         <Link
           to={`/listing/${mealId}`}
           className=" bg-slate-800 text-white px-[30px] py-[6px] text-center mx-2"
         >
           Back
         </Link>
-        <button className="bg-red-400 text-white px-[30px] py-[5px] text-center mx-2">
-          Proceed
-        </button>
-      </div>
-      <div className="bg-slate-200">
-        <Menulist menu={menuList} restaurant={details} />
-        <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+// import Orderdmenu from "./Components/Booking/Orderdmenu";
 import Booking from "./Pages/Booking";
 import Homepage from "./Pages/Homepage";
 import Listingpage from "./Pages/Listingpage";
@@ -10,6 +11,7 @@ function Layout() {
       <Listingpage />
       <Restdetail />
       <Booking />
+      {/* <Orderdmenu /> */}
     </>
   );
 }

@@ -1,55 +1,107 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const url = "http://localhost:3000";
+
 function Menulist({ menu, restaurant }) {
   const [order, setOrder] = useState([]);
-  const [finalOrder, setFinalOrder] = useState([]);
+  const [totalCost, setTotalCost] = useState(0);
   const navigate = useNavigate();
 
-  // Function to add item to order
+  useEffect(() => {
+    const storedOrder = JSON.parse(sessionStorage.getItem("finalOrder"));
+    const storedCost = sessionStorage.getItem("totalCost");
+    if (storedOrder) {
+      setOrder(storedOrder);
+    }
+    if (storedCost) {
+      setTotalCost(parseFloat(storedCost));
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("finalOrder", JSON.stringify(order));
+    sessionStorage.setItem("totalCost", totalCost.toString());
+  }, [order, totalCost]);
+
   const addToOrder = (item) => {
-    setOrder([...order, item]);
-  };
-  // Function to remove item from order
-  const removeFromOrder = (index) => {
-    const newOrder = [...order];
-    newOrder.splice(index, 1);
-    setOrder(newOrder);
+    setOrder((prevOrder) => {
+      const updatedOrder = [...prevOrder, item];
+      const orderIds = updatedOrder.map((val) => val.menu_id);
+      sessionStorage.setItem("finalOrder", JSON.stringify(orderIds));
+
+      const requestBody = {
+        menu_id: orderIds,
+      };
+
+      fetch(`${url}/menuItem`, {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            return res.json().then((error) => {
+              throw new Error(error.error);
+            });
+          }
+          return res.json();
+        })
+        .then((data) => {
+          let newTotalCost = totalCost;
+          data.forEach((item) => {
+            newTotalCost += parseFloat(item.menu_price);
+          });
+          setTotalCost(newTotalCost);
+        })
+        .catch((error) => {
+          console.error("Error:", error.message);
+        });
+
+      return updatedOrder;
+    });
   };
 
-  // Calculate total number of items in order
-  const totalItems = order.length;
-  console.log(
-    order.map((val) => {
-      return val.menu_id;
-    })
-  );
-  // Function to finalize order and store in sessionStorage
+  const removeFromOrder = (menu_id) => {
+    setOrder((prevOrder) => {
+      const updatedOrder = prevOrder.filter((item) => item.menu_id !== menu_id);
+      const removedItem = prevOrder.find((item) => item.menu_id === menu_id);
+      setTotalCost((prevCost) => prevCost - parseFloat(removedItem.menu_price));
+      sessionStorage.setItem(
+        "finalOrder",
+        JSON.stringify(updatedOrder.map((val) => val.menu_id))
+      );
+      sessionStorage.setItem(
+        "totalCost",
+        (totalCost - parseFloat(removedItem.menu_price)).toString()
+      );
+      return updatedOrder;
+    });
+  };
+
   const finalizeOrder = () => {
-    setFinalOrder(order);
-    sessionStorage.setItem(
-      "finalOrder",
-      JSON.stringify(
-        order.map((val) => {
-          return val.menu_id;
-        })
-      )
-    );
     navigate(`/placeorder/${encodeURIComponent(restaurant.restaurant_name)}`);
   };
-  console.log(restaurant.restaurant_name);
+
+  const totalItems = order.length;
+
   return (
     <div className="container mx-auto py-4">
       <div className="mt-4">
         <p className="text-3xl">
           Total items added: <span className="font-bold">{totalItems}</span>
         </p>
+        <p className="text-3xl">
+          Total cost: <span className="font-bold">Rs/- {totalCost}</span>
+        </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Display each menu item */}
         {menu.map((item) => (
           <div
             key={item.menu_id}
@@ -82,7 +134,7 @@ function Menulist({ menu, restaurant }) {
                   Add to Cart
                 </button>
                 <button
-                  onClick={() => removeFromOrder(item)}
+                  onClick={() => removeFromOrder(item.menu_id)}
                   className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
                 >
                   Remove from Cart
@@ -92,7 +144,7 @@ function Menulist({ menu, restaurant }) {
           </div>
         ))}
       </div>
-      <div className="mt-4">
+      <div className="mt-4 text-center">
         <button
           onClick={finalizeOrder}
           className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4"
@@ -116,11 +168,9 @@ Menulist.propTypes = {
       menu_id: PropTypes.string.isRequired,
     })
   ).isRequired,
-  restaurant: PropTypes.arrayOf(
-    PropTypes.shape({
-      restaurant_name: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  restaurant: PropTypes.shape({
+    restaurant_name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Menulist;

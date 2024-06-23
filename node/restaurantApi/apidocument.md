@@ -37,7 +37,7 @@ http://localhost:3000/menu/2
 ## page 4
 
 menu items[POST]
-http://localhost:3000/menu/2
+http://localhost:3000/menuItem
 
 placeorder[POST]
 http://localhost:3000/placeorder
