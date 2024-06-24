@@ -212,6 +212,7 @@ app.delete("/deleteOrder/:id", (req, res) => {
 });
 
 // payment
+
 app.post("/api/payment", async (req, res) => {
   const { id, amount } = req.body;
 
