@@ -102,8 +102,6 @@ app.get("/details/:id", (req, res) => {
     });
 });
 
-//menu details
-
 app.get("/menu/:id", (req, res) => {
   let id = Number(req.params.id);
   db.collection("RestaurantMenu")
@@ -113,21 +111,6 @@ app.get("/menu/:id", (req, res) => {
       res.send(result);
     });
 });
-
-// menu item
-
-// app.post("/menuItem", (req, res) => {
-//   if (Array.isArray(req.body)) {
-//     db.collection("RestaurantMenu").find({ menu_id: { $in: req.body } })(
-//       (err, result) => {
-//         if (err) throw err;
-//         res.send(result);
-//       }
-//     );
-//   } else {
-//     res.send("invalid input");
-//   }
-// });
 
 app.post("/menuItem", (req, res) => {
   console.log("Received request body:", req.body);
