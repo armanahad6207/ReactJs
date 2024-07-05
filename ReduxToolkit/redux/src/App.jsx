@@ -1,7 +1,9 @@
+import Product from "./components/Product";
+
 function App() {
   return (
     <>
-      <div className="bg-red-300">heloo</div>
+      <Product />
     </>
   );
 }
